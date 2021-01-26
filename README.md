@@ -4,17 +4,19 @@ This repo is a fun proof of concept to show a CFML equivalent to the Python vers
 
 https://github.com/ecivis/scan-cfml-admin
 
-I just copied his spec and rewrote it in CFML using a CommandBox task runner.  This could very easily be made into a custom command you install globally, but adding a `ModuleConfig.cfc`, `box.json` and pubilshing it for [ForgeBox](https://www.forgebox.io).
+I just copied his spec and rewrote it in CFML using a [CommandBox task runner](https://commandbox.ortusbooks.com/task-runners).  This could very easily be made into a custom command you install globally, but adding a `ModuleConfig.cfc`, `box.json` and pubilshing it for [ForgeBox](https://www.forgebox.io).
 
 ## Improvements
 
-This CFML version uses the InteractiveJob helper to produce nice output from the job.
+This CFML version uses the [InteractiveJob](https://commandbox.ortusbooks.com/task-runners/interactive-jobs) helper to produce nice output from the job.
 
 ![Screenshot](screenshot.png)
 
 If one or more CFML admins are located, the tas, returns a failing exit code making it suitable to be used as part of an automation
 
 The target scanning is performed in parallel for faster response times if you have a lot of targets, or they are slow to respond.
+
+When verbose is active, the total number of miliseconds elapsed during scannnig is reported.
 
 ## Intro
 
