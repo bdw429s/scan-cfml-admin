@@ -2,11 +2,13 @@
 * 
 */
 component {
+	property name="progress" inject="progressBarGeneric";
 
 	adobeURIs = [ '/CFIDE/administrator/index.cfm' ];
 	luceeURIs = [ '/lucee/admin/server.cfm', '/lucee/admin/web.cfm' ];
 	protocolsAll = [ 'https://', 'http://' ];
 	protocolsHTTP = [ 'http://' ];
+
 	/**
 	* 
 	*/
@@ -20,6 +22,7 @@ component {
 			if( !fileExists( targetsFile ) ) {
 				error( 'Targets file [#targetsFile#] doesn''t exist.', 'You may have intended to pass a custom targets.json file' );
 			}
+
 			job.start( 'Gathering list of targets' );
 				var targets = systemSettings.expandDeepSystemSettings( deserializeJSON( fileRead( targetsFile ) ) )
 					.filter( (t)=>!(t.skip?:false) )
@@ -35,12 +38,12 @@ component {
 			job.complete();
 
 			job.start( 'Scanning #targets.len()# targets...', 15 );
+				var processedNum = 0;
+				progress.update( percent=0 );
 				var accessableAdmins = [];
 				var start = getTickCount();
 
 				targets.each( (t)=>{
-					if( !verbose ) job.addLog( 'Scanning [#t#]...' );
-
 					http url=t result='local.results' timeout=5;
 					if( local.results.status_Code == 200 ) {
 						accessableAdmins.append( {
@@ -49,14 +52,18 @@ component {
 							'title' : getPageTitle( local.results.fileContent )
 						 } );
 					}
-					if( verbose ) {
-						lock name="keep-log-lines-together" type="exclusive" timeout=20 {
-							job.addLog( 'Scanning [#t#]...' );
+					lock name="update-progress-bar" type="exclusive" timeout=20 {
+						job.addLog( 'Scanning [#t#]...' );
+						if( verbose ) {
 							job[ 'add#( local.results.status_Code == 200 ? 'Error' : 'Success' )#Log' ]( local.results.statusCode );
 						}
+						processedNum++;
+						progress.update( percent=(processedNum/targets.len()) * 100, currentCount=processedNum, totalCount=targets.len() );
 					}
 
 				}, true );
+				
+			progress.clear();
 			job.addLog( 'Completed in #getTickCount()-start#ms' )
 			job.complete();
 			
