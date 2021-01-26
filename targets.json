@@ -1,0 +1,31 @@
+[
+    {
+        "hostname": [
+            "cfconfig.local:52807",
+            "google.com"
+        ]
+    },
+    {
+        "skip": true,
+        "hostname": [
+            "skip.me"
+        ]
+    },
+    {
+        "ip": [
+            "127.0.0.1",
+            "127.0.0.2"
+        ]
+    },
+    {
+        "baseurl": [
+            "http://app01.domain.tld:8080",
+            "http://app01.domain.tld:8081"
+        ]
+    },
+    {
+        "url": [
+            "https://admin.domain.tld:8889/admin/cfml/"
+        ]
+    }
+]
