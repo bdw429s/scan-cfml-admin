@@ -4,7 +4,7 @@ This repo is a fun proof of concept to show a CFML equivalent to the Python vers
 
 https://github.com/ecivis/scan-cfml-admin
 
-I just copied his spec and rewrote it in CFML using a CommandBox task runner.  This cuold very easily be made into a custom command you install, but adding a `ModuleConfig.cfc`, `box.json` and pubilshing it for [ForgeBox](https://www.forgebox.io).
+I just copied his spec and rewrote it in CFML using a CommandBox task runner.  This could very easily be made into a custom command you install globally, but adding a `ModuleConfig.cfc`, `box.json` and pubilshing it for [ForgeBox](https://www.forgebox.io).
 
 ## Improvements
 
