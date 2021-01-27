@@ -1,6 +1,3 @@
-/**
-* 
-*/
 component {
 	property name="progress" inject="progressBarGeneric";
 
@@ -9,9 +6,6 @@ component {
 	protocolsAll = [ 'https://', 'http://' ];
 	protocolsHTTP = [ 'http://' ];
 
-	/**
-	* 
-	*/
 	function run(
 		string targetsFile=resolvePath('targets.json'),
 		string vendors='all',
@@ -110,10 +104,8 @@ component {
 		}
 		if( titleSearch.len() ) {
 			return titleSearch[1].XMLText;
-		} else {
-			return '';
 		}
+		return '';
 	}
-
 
 }
