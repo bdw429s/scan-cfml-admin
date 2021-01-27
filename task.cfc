@@ -20,13 +20,10 @@ component {
 			job.start( 'Gathering list of targets' );
 				var targets = systemSettings.expandDeepSystemSettings( deserializeJSON( fileRead( targetsFile ) ) )
 					.filter( (t)=>!(t.skip?:false) )
-					.reduce( (acc,t)=>{
-						acc.append( expandAdminPaths( expandProtocols( t.hostname?:[], protocolsAll ), vendors ), true );
-						acc.append( expandAdminPaths( expandProtocols( t.ip?:[], protocolsHTTP ), vendors ), true );
-						acc.append( expandAdminPaths( t.baseurl?:[], vendors ), true );
-						acc.append( t.url?:[], true );
-						return acc;
-					}, [] );
+					.reduce( (acc,t)=>acc.append( expandAdminPaths( expandProtocols( t.hostname?:[], protocolsAll ), vendors ), true )
+										.append( expandAdminPaths( expandProtocols( t.ip?:[], protocolsHTTP ), vendors ), true )
+										.append( expandAdminPaths( t.baseurl?:[], vendors ), true )
+										.append( t.url?:[], true ), [] );
 
 				job.addLog( 'Found #targets.len()# targets to scan.' );
 			job.complete();
