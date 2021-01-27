@@ -18,6 +18,8 @@ The target scanning is performed in parallel for faster response times if you ha
 
 When verbose is active, the total number of miliseconds elapsed during scannnig is reported.
 
+The targets.json file can use [environment variable expansions](https://commandbox.ortusbooks.com/usage/system-settings#using-system-settings-in-json-files) in the form of `${name}` just like `box.json` or `server.json` files allow.
+
 The task uses the generic progress bar feature in CommandBox task runners to show a progress bar as it scans the targets.
 
 ![Screenshot](screenshot-progress-bar.png)
